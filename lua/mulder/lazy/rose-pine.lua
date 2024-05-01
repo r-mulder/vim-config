@@ -9,8 +9,6 @@ return {
                     transparent = true,
                 }
             })
-
-            -- vim.cmd("colorscheme rose-pine")
         end
     },
 }

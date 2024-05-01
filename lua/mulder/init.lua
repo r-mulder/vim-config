@@ -10,28 +10,9 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 local MulderGroup = augroup('Mulder', {})
 
+-- colorscheme
 vim.cmd("colorscheme rose-pine")
 -- vim.cmd("colorscheme nord")
--- vim.cmd("colorscheme evergarden")
-
--- autocmd({ "BufWritePre" }, {
---     group = MulderGroup,
---     pattern = "*",
---     command = [[%s/\s\+$//e]],
--- })
-
--- autocmd({ "BufWritePre" }, {
---     group = MulderGroup,
---     pattern = "*",
---     -- cannot have command and callback, i use callback now for format on save
---     -- command = [[%s/\s\+$//e]],
---     callback = function()
---         vim.lsp.buf.format()
---         if vim.fn.executable('eslint') == 1 then
---             vim.cmd([[EslintFixAll]])
---         end
---     end,
--- })
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
     group = MulderGroup,
