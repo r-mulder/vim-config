@@ -1,3 +1,22 @@
+local function filter(arr, fn)
+    if type(arr) ~= "table" then
+        return arr
+    end
+
+    local filtered = {}
+    for k, v in pairs(arr) do
+        if fn(v, k, arr) then
+            table.insert(filtered, v)
+        end
+    end
+
+    return filtered
+end
+
+local function filterReactDTS(value)
+    return string.match(value.uri, 'react/index.d.ts') == nil
+end
+
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -32,7 +51,6 @@ return {
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
@@ -51,10 +69,23 @@ return {
                         }
                     }
                 end,
+                ['tsserver'] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.tsserver.setup {
+                        ['textDocument/definition'] = function(err, result, method, ...)
+                            if vim.tbl_islist(result) and #result > 1 then
+                                local filtered_result = filter(result, filterReactDTS)
+                                return vim.lsp.handlers['textDocument/definition'](err, filtered_result, method, ...)
+                            end
+
+                            vim.lsp.handlers['textDocument/definition'](err, result, method, ...)
+                        end
+                    }
+                end,
             }
         })
 
-        local cmp_select = { behavior = cmp.SelectBehavior.Select }
+        -- local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
         cmp.setup({
             snippet = {
@@ -63,9 +94,13 @@ return {
                 end,
             },
             mapping = cmp.mapping.preset.insert({
-                ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+                -- ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+                -- ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+                -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                -- ["<C-Space>"] = cmp.mapping.complete(),
+                ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
+                ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
+                ['<Tab>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
             }),
             sources = cmp.config.sources({

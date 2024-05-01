@@ -47,8 +47,21 @@ vim.keymap.set(
     "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
 )
 
-vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
-end)
+-- vim.keymap.set("n", "<leader><leader>", function()
+--     vim.cmd("so")
+-- end)
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+-- split windows
+vim.keymap.set("n","<leader>ss", ":split<Return>")
+vim.keymap.set("n","<leader>sv", ":vsplit<Return>")
+
+-- move between windows
+vim.keymap.set("n","<C-h>", "<C-w>h")
+vim.keymap.set("n","<C-j>", "<C-w>j")
+vim.keymap.set("n","<C-k>", "<C-w>k")
+vim.keymap.set("n","<C-l>", "<C-w>l")
+
+-- save with ctrl+s
+vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
