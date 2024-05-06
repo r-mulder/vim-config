@@ -31,3 +31,5 @@ vim.opt.colorcolumn = "80"
 -- Nord options
 vim.g.nord_italics = false
 vim.g.nord_bold = false
+
+vim.opt.clipboard = "unnamedplus"

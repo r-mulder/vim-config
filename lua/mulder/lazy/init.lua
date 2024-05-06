@@ -19,6 +19,8 @@ return {
     "nvim-tree/nvim-web-devicons",
     { "rose-pine/neovim", name = "rose-pine" },
     "windwp/nvim-ts-autotag",
+    -- To use dd in quickfix list
+    'TamaMcGlinn/quickfixdd',
     { -- Autoformat
         'stevearc/conform.nvim',
         lazy = false,
@@ -58,4 +60,5 @@ return {
                 -- javascript = { { "prettierd", "prettier" } },
             },
         },
-    }, }
+    },
+}
