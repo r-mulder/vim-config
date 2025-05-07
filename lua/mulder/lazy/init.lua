@@ -1,23 +1,8 @@
 return {
     -- "github/copilot.vim",
-    {
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
-        config = function()
-            require("copilot").setup({
-                suggestion = {
-                    auto_trigger = true,
-                    keymap = {
-                        accept = "<Tab>"
-                        -- accept = "<C-j>"
-                    }
-                }
-            })
-        end,
-    },
     "nvim-tree/nvim-web-devicons",
-    { "rose-pine/neovim", name = "rose-pine" },
+    { "smartpde/telescope-recent-files" },
+    { "rose-pine/neovim",               name = "rose-pine" },
     "windwp/nvim-ts-autotag",
     -- To use dd in quickfix list
     'TamaMcGlinn/quickfixdd',

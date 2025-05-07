@@ -41,13 +41,28 @@ return {
             vim.lsp.protocol.make_client_capabilities(),
             cmp_lsp.default_capabilities())
 
+        vim.filetype.add {
+            extension = {
+                pact = 'pact',
+                repl = 'pact',
+            },
+        }
+        local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+        parser_config.pact = {
+            install_info = {
+                url = '~/tree-sitter-pact',
+                files = { 'src/parser.c' },
+            },
+            filetype = 'pact',
+        }
+
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
                 "rust_analyzer",
-                "tsserver",
+                "eslint",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -69,9 +84,16 @@ return {
                         }
                     }
                 end,
-                ['tsserver'] = function()
+                ['eslint'] = function()
                     local lspconfig = require("lspconfig")
-                    lspconfig.tsserver.setup {
+                    lspconfig.eslint.setup {
+                        on_attach = function(client, bufnr)
+                            vim.api.nvim_create_autocmd("BufWritePre", {
+                                buffer = bufnr,
+                                command = "EslintFixAll",
+                            })
+                        end,
+
                         ['textDocument/definition'] = function(err, result, method, ...)
                             if vim.tbl_islist(result) and #result > 1 then
                                 local filtered_result = filter(result, filterReactDTS)
@@ -99,8 +121,9 @@ return {
                 -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
                 -- ["<C-Space>"] = cmp.mapping.complete(),
                 ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
+                -- ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+                ['<C-l>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
             }),
             sources = cmp.config.sources({

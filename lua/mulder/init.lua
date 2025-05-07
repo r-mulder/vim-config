@@ -11,7 +11,8 @@ local augroup = vim.api.nvim_create_augroup
 local MulderGroup = augroup('Mulder', {})
 
 -- colorscheme
-vim.cmd("colorscheme rose-pine")
+-- vim.cmd("colorscheme rose-pine")
+vim.cmd("colorscheme everforest")
 -- vim.cmd("colorscheme nord")
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
@@ -39,7 +40,6 @@ autocmd('LspAttach', {
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
     end
 })
-
 
 require("oil").setup({
     keymaps = {
