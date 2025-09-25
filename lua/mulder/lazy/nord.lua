@@ -1,3 +1,3 @@
 return {
-    "shaunsingh/nord.nvim", name = 'nord'
+  "shaunsingh/nord.nvim", name = 'nord'
 }

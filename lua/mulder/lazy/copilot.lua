@@ -1,17 +1,19 @@
 return {
-    -- "github/copilot.vim",
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-        require("copilot").setup({
-            suggestion = {
-                auto_trigger = true,
-                keymap = {
-                    -- accept = "<Tab>"
-                    accept = "<C-j>"
-                }
-            }
-        })
-    end,
+  -- "github/copilot.vim",
+  "zbirenbaum/copilot.lua",
+  cmd = "Copilot",
+  event = "InsertEnter",
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+  config = function()
+    require("copilot").setup({
+      suggestion = {
+        auto_trigger = true,
+        keymap = {
+          accept = "<Tab>"
+          -- accept = "<C-j>"
+        }
+      }
+    })
+  end,
 }
