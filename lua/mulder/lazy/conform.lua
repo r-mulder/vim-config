@@ -33,12 +33,13 @@ return {
 		end,
 		formatters_by_ft = {
 			lua = { "stylua" },
-			-- Inner table = stop after first working formatter (prettierd, fallback to prettier)
-			javascript = { { "prettierd", "prettier" } },
-			javascriptreact = { { "prettierd", "prettier" } },
-			typescript = { { "prettierd", "prettier" } },
-			typescriptreact = { { "prettierd", "prettier" } },
-			html = { { "prettierd", "prettier" } },
+			javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
+			javascriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
+			typescript = { "biome", "prettierd", "prettier", stop_after_first = true },
+			typescriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
+			json = { "biome", "prettierd", "prettier", stop_after_first = true },
+			jsonc = { "biome", "prettierd", "prettier", stop_after_first = true },
+			html = { "prettierd", "prettier", stop_after_first = true },
 		},
 	},
 }

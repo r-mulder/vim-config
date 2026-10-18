@@ -90,6 +90,7 @@ return {
 		-- mason-lspconfig automatically calls vim.lsp.enable() for all installed servers
 		require("mason-lspconfig").setup({
 			ensure_installed = {
+				"biome",
 				"lua_ls",
 				"eslint",
 				"html",
